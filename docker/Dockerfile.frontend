@@ -1,0 +1,45 @@
+# Use Python 3.11 slim image as base
+FROM python:3.11-slim
+
+# Set environment variables
+ENV PYTHONDONTWRITEBYTECODE=1 \
+    PYTHONUNBUFFERED=1 \
+    PIP_NO_CACHE_DIR=1 \
+    PIP_DISABLE_PIP_VERSION_CHECK=1 \
+    PIP_DEFAULT_TIMEOUT=100 \
+    APP_HOME=/app \
+    APP_USER=app_user \
+    STREAMLIT_SERVER_PORT=8501 \
+    STREAMLIT_SERVER_ADDRESS=0.0.0.0
+
+# Create custom user for security
+RUN groupadd -r ${APP_USER} && useradd -r -g ${APP_USER} ${APP_USER}
+
+# Set working directory
+WORKDIR ${APP_HOME}
+
+# Install system dependencies
+RUN apt-get update \
+    && apt-get install -y --no-install-recommends \
+        curl \
+    && rm -rf /var/lib/apt/lists/*
+
+# Copy frontend requirements and install dependencies
+COPY ../frontend/requirements.txt .
+RUN pip install --no-cache-dir -r requirements.txt
+
+# Copy frontend application code and .streamlit config
+COPY ../frontend/app.py .
+COPY ../frontend/.streamlit/ ./.streamlit/
+
+# Set correct permissions
+RUN chown -R ${APP_USER}:${APP_USER} ${APP_HOME}
+
+# Switch to non-root user
+USER ${APP_USER}
+
+# Expose port
+EXPOSE 8501
+
+# Command to run the application
+CMD ["streamlit", "run", "app.py"]

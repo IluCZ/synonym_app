@@ -1,0 +1,7 @@
+[server]
+enableCORS = true
+address = "0.0.0.0"  # This is for Docker internal binding
+port = 8501
+
+[browser]
+serverAddress = "localhost"  # This is for browser access

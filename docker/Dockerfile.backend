@@ -1,0 +1,45 @@
+# Use Python 3.11 slim image as base
+FROM python:3.11-slim
+
+# Set environment variables
+ENV PYTHONDONTWRITEBYTECODE=1 \
+    PYTHONUNBUFFERED=1 \
+    # pip
+    PIP_NO_CACHE_DIR=1 \
+    PIP_DISABLE_PIP_VERSION_CHECK=1 \
+    PIP_DEFAULT_TIMEOUT=100 \
+    # app
+    APP_HOME=/app \
+    APP_USER=app_user
+
+# Create custom user for security
+RUN groupadd -r ${APP_USER} && useradd -r -g ${APP_USER} ${APP_USER}
+
+# Set working directory
+WORKDIR ${APP_HOME}
+
+# Install system dependencies
+RUN apt-get update \
+    && apt-get install -y --no-install-recommends \
+        curl \
+    && rm -rf /var/lib/apt/lists/*
+
+# Copy backend requirements and install dependencies
+COPY ../../backend/requirements.txt .
+RUN pip install --no-cache-dir -r requirements.txt
+
+# Copy the backend code
+COPY ../../backend/ .
+
+# Create directory for logs with proper permissions
+RUN mkdir -p /app/logs \
+    && chown -R ${APP_USER}:${APP_USER} /app/logs
+
+# Switch to non-root user
+USER ${APP_USER}
+
+# Expose port
+EXPOSE 8000
+
+# Command to run the application
+CMD ["uvicorn", "main:app", "--host", "0.0.0.0", "--port", "8000"]
