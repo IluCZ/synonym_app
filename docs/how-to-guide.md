@@ -1,102 +1,154 @@
 # How to Deploy and Use the Synonym App
 
 ## Rationale
-The Synonym App helps users find synonyms for words and word combinations using multiple API sources. The application provides a user-friendly web interface for searching synonyms and maintains a search history. Using Docker ensures consistent deployment across different platforms and simplifies the installation process.
+Finding accurate synonyms quickly is essential for writers, students, and professionals. The Synonym App solves this challenge by:
+- Providing instant access to multiple synonym sources for comprehensive results
+- Supporting both single words and word combinations for more contextual results
+- Maintaining search history for frequent words and phrases
+- Ensuring reliable results through redundant API sources
+- Offering a simple, intuitive web interface for easy access
 
 ## Prerequisites
-Before deploying the Synonym App, ensure that your system meets the following requirements:
 
-- Docker Desktop is installed and running on your machine
-- Ports 8501 and 8000 are available and not used by other applications
-- Minimum system requirements:
-  - 4GB RAM
-  - 10GB free disk space
-  - Internet connection for accessing synonym APIs
+Before deploying the Synonym App, ensure your environment meets these requirements:
+
+System Requirements:
+- Docker Desktop installed and running
+- 4GB RAM minimum
+- 10GB free disk space
+- Stable internet connection
+
+Network Requirements:
+- Ports 8501 (frontend) and 8000 (backend) available
+- No firewall blocking Docker connections
+- Internet access for API calls
+
+API Access (Required):
+- Active API Ninjas account (register at https://api-ninjas.com/)
+- Valid API key from API Ninjas dashboard
+- Note: Keep your API key secure and never share it
 
 ## Procedure
+
 To deploy and start using the Synonym App, follow these steps:
 
-1. Prepare the deployment environment:
-   - Download and extract the `synonym_app.zip` file to your local machine
-   - Open a terminal or command prompt
-   - Navigate to the docker directory:
+1. Set Up API Access:
+   - Register at API Ninjas website
+   - Log in to your dashboard
+   - Copy your API key
+   - Create `.env` file in the docker directory:
+     ```
+     API_NINJAS_KEY=your_key_here
+     ```
+   Result: `.env` file created with valid API key
+
+2. Prepare Application:
+   - Extract synonym_app.zip to your local machine
+   - Open terminal/command prompt
+   - Navigate to docker directory:
      ```bash
      cd synonym_app/docker
      ```
+   Result: Working directory set to docker folder
 
-2. Start the application:
-   - Execute the following command to build and start the containers:
+3. Start Application:
+   - Build and start containers:
      ```bash
      docker-compose up --build
      ```
-   - Wait for both frontend and backend services to start
-   - You should see messages indicating successful startup for both services
+   - Wait for build process to complete
+   - Check for successful startup messages
+   Result: Both frontend and backend containers running
 
-3. Access the application:
-   - Open your web browser
+4. Access Interface:
+   - Open web browser
    - Navigate to http://localhost:8501
-   - The Synonym Finder interface should appear
+   - Verify Synonym Finder interface loads
+   Result: Application interface visible and responsive
 
-4. Use the application:
-   - Enter a word or phrase in the input field
-   - [Optional] Expand "Advanced Options" to adjust the number of synonyms
+5. Perform Initial Test:
+   - Enter a simple word (e.g., "happy")
    - Click "Find Synonyms"
-   - View the results displayed below the input form
-   - [Optional] Check the search history in the expandable section
-
-5. Monitor the application:
-   - Check that both services are running:
-     ```bash
-     docker ps
-     ```
-   - You should see two containers: frontend and backend
-   - Verify the backend health at http://localhost:8000/health
-
-6. Stop the application:
-   - Press Ctrl+C in the terminal where the application is running
-   - Wait for both containers to stop gracefully
+   - Wait for results
+   Result: List of synonyms displayed with API sources
 
 ## Validation
-To verify that the application is working correctly:
 
-1. Check container status:
-   - Open a new terminal
-   - Run `docker ps`
-   - Verify both frontend and backend containers are running
+Verify that your installation is working correctly:
 
-2. Test the application:
-   - Enter a simple word like "happy"
-   - Click "Find Synonyms"
-   - You should receive at least 3 synonyms
-   - The sources used should be displayed
+1. Check Container Status:
+   ```bash
+   docker ps
+   ```
+   Expected output: Two containers running (frontend, backend)
 
-3. Verify features:
-   - Test search history functionality
-   - Try advanced options
-   - Test with multiple words
+2. Verify API Connection:
+   - Access http://localhost:8000/health
+   - Expected response: {"status": "healthy"}
+
+3. Test Core Functionality:
+   - Basic word search
+   - Word combination search
+   - Advanced options adjustment
+   Expected: Successful results for each test
+
+4. Verify Features:
+   - Search history appears
+   - Source information displays
+   - Error messages show when needed
 
 ## Troubleshooting
-If you encounter issues:
 
-1. Container startup fails:
+If you encounter issues, follow these steps:
+
+1. Container Startup Issues:
    - Verify Docker Desktop is running
-   - Check if ports 8501 and 8000 are available
-   - Review logs with `docker-compose logs`
+   - Check for port conflicts:
+     ```bash
+     netstat -ano | findstr "8501"
+     netstat -ano | findstr "8000"
+     ```
+   - Review logs:
+     ```bash
+     docker-compose logs
+     ```
 
-2. Application not responding:
-   - Refresh the browser page
-   - Restart the containers:
+2. No API Results:
+   - Verify API key in `.env` file
+   - Check internet connection
+   - Confirm API service status at API Ninjas dashboard
+   - Review backend logs:
+     ```bash
+     docker-compose logs backend
+     ```
+
+3. Interface Not Loading:
+   - Clear browser cache
+   - Try different browser
+   - Restart containers:
      ```bash
      docker-compose down
      docker-compose up --build
      ```
 
-3. No synonyms found:
-   - Check your internet connection
-   - Verify backend health at http://localhost:8000/health
-   - Review backend logs for API errors
+4. Performance Issues:
+   - Check system resources
+   - Verify internet speed
+   - Monitor container resources:
+     ```bash
+     docker stats
+     ```
 
-## Related Links
-- [Docker Desktop Installation Guide](https://docs.docker.com/desktop/install/windows-install/)
-- [Streamlit Documentation](https://docs.streamlit.io/)
+## Related Resources
+
+- [Docker Desktop Installation](https://docs.docker.com/desktop/install/windows-install/)
+- [API Ninjas Registration](https://api-ninjas.com/register)
+- [API Ninjas Documentation](https://api-ninjas.com/api)
 - [FastAPI Documentation](https://fastapi.tiangolo.com/)
+- [Streamlit Documentation](https://docs.streamlit.io/)
+
+## Contact and Support
+
+For issues or questions:
+- Email: richard.cibere@seznam.cz
+- GitHub Issues: Create an issue in the repository
