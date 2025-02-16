@@ -1,12 +1,12 @@
-# Python - bytecode a cache
+# Python - bytecode and cache
 __pycache__/
 *.py[cod]
 *$py.class
 
-# Python - kompilované rozšíření
+# Python - compiled extensions
 *.so
 
-# Python - distribuce a packaging
+# Python - distribution and packaging
 .Python
 build/
 develop-eggs/
@@ -24,27 +24,27 @@ wheels/
 .installed.cfg
 *.egg
 
-# Virtuální prostředí
+# Virtual environment
 venv/
 env/
 ENV/
 .venv/
 
-# IDE a editory
+# IDEs and editors
 .idea/           # PyCharm
 .vscode/         # Visual Studio Code
 *.swp            # Vim
 *.swo            # Vim
 *~               # Temporary files
 
-# Logy a dočasné soubory
+# Logs and temporary files
 *.log
 logs/
 docker/logs/
 tmp/
 temp/
 
-# Lokální konfigurační soubory
+# Local configuration files
 .env
 .env.local
 .env.*.local
@@ -54,12 +54,12 @@ temp/
 .docker/
 docker-compose.override.yml
 
-# OS specifické soubory
+# OS specific files
 .DS_Store        # Mac
 Thumbs.db        # Windows
 desktop.ini      # Windows
 
-# Testování a coverage
+# Testing and coverage
 .coverage
 coverage.xml
 htmlcov/
