@@ -44,10 +44,11 @@ docker/logs/
 tmp/
 temp/
 
-# Local configuration files
+# Environment variables and local configuration
 .env
 .env.local
-.env.*.local
+.env.*
+!.env.example
 *.local.py
 
 # Docker
