@@ -1,0 +1,67 @@
+# Python - bytecode a cache
+__pycache__/
+*.py[cod]
+*$py.class
+
+# Python - kompilované rozšíření
+*.so
+
+# Python - distribuce a packaging
+.Python
+build/
+develop-eggs/
+dist/
+downloads/
+eggs/
+.eggs/
+lib/
+lib64/
+parts/
+sdist/
+var/
+wheels/
+*.egg-info/
+.installed.cfg
+*.egg
+
+# Virtuální prostředí
+venv/
+env/
+ENV/
+.venv/
+
+# IDE a editory
+.idea/           # PyCharm
+.vscode/         # Visual Studio Code
+*.swp            # Vim
+*.swo            # Vim
+*~               # Temporary files
+
+# Logy a dočasné soubory
+*.log
+logs/
+docker/logs/
+tmp/
+temp/
+
+# Lokální konfigurační soubory
+.env
+.env.local
+.env.*.local
+*.local.py
+
+# Docker
+.docker/
+docker-compose.override.yml
+
+# OS specifické soubory
+.DS_Store        # Mac
+Thumbs.db        # Windows
+desktop.ini      # Windows
+
+# Testování a coverage
+.coverage
+coverage.xml
+htmlcov/
+.pytest_cache/
+.tox/
