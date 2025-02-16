@@ -13,6 +13,13 @@ A web application that helps users find synonyms for words and word combinations
 - Health monitoring
 - Cross-platform support via Docker
 
+## Tech Stack
+
+- Frontend: Streamlit (Python)
+- Backend: FastAPI (Python)
+- Containerization: Docker & Docker Compose
+- APIs: Datamuse, API Ninjas
+
 ## Project Structure
 
 ```
@@ -23,61 +30,101 @@ synonym_app/
 │   └── .streamlit/        # Streamlit configuration
 ├── backend/
 │   ├── main.py            # FastAPI backend application
+│   ├── test_api.py        # API tests
 │   └── requirements.txt    # Backend dependencies
-└── docker/
-    ├── config/            # Configuration files
-    ├── logs/             # Application logs
-    ├── .dockerignore     # Docker ignore file
-    ├── docker-compose.yml
-    ├── Dockerfile.backend
-    └── Dockerfile.frontend
+├── docker/
+│   ├── config/            # Configuration files
+│   ├── logs/             # Application logs
+│   ├── .dockerignore     # Docker ignore file
+│   ├── docker-compose.yml
+│   ├── Dockerfile.backend
+│   └── Dockerfile.frontend
+└── docs/                  # Documentation files
 ```
 
 ## Prerequisites
 
-- [Docker Desktop](https://www.docker.com/products/docker-desktop/)
+- [Docker Desktop](https://www.docker.com/products/docker-desktop/) (version 20.10 or higher)
 - Internet connection (for accessing synonym APIs)
-- Ports 8501 and 8000 available on your machine
+- Available ports:
+  - 8501 (Frontend)
+  - 8000 (Backend API)
 
-## Installation and Running
+## Quick Start
 
-1. Clone the repository or extract the provided ZIP file:
+1. Clone the repository:
    ```bash
    git clone <repository-url>
-   # or extract synonym_app.zip
+   cd synonym_app
    ```
 
 2. Navigate to the docker directory:
    ```bash
-   cd synonym_app/docker
+   cd docker    # Important: You must be in the docker directory!
    ```
 
-3. Build and start the application:
+3. Start the application:
    ```bash
    docker-compose up --build
    ```
 
 4. Access the application:
-   - Frontend interface: http://localhost:8501
-   - Backend API: http://localhost:8000
-   - API Documentation: http://localhost:8000/docs
+   - Frontend: [http://localhost:8501](http://localhost:8501)
+   - Backend API: [http://localhost:8000](http://localhost:8000)
+   - API Documentation: [http://localhost:8000/docs](http://localhost:8000/docs)
+
+## Development Setup
+
+### Backend Development
+```bash
+cd backend
+python -m venv venv
+source venv/bin/activate  # On Windows: venv\Scripts\activate
+pip install -r requirements.txt
+uvicorn main:app --reload --port 8000
+```
+
+### Frontend Development
+```bash
+cd frontend
+python -m venv venv
+source venv/bin/activate  # On Windows: venv\Scripts\activate
+pip install -r requirements.txt
+streamlit run app.py
+```
 
 ## Usage Guide
 
-1. Single Word Search:
-   - Enter a word in the input field
-   - Optionally adjust minimum and maximum synonyms in Advanced Options
-   - Click "Find Synonyms"
-   - View results and sources used
+### Single Word Search
+1. Enter a word in the input field
+2. (Optional) Adjust minimum and maximum synonyms in Advanced Options
+3. Click "Find Synonyms"
+4. View results and sources used
 
-2. Word Combination Search:
-   - Enter two words separated by space (e.g., "fast car")
-   - Click "Find Synonyms"
-   - View synonyms for each word and suggested combinations
+### Word Combination Search
+1. Enter two words separated by space (e.g., "fast car")
+2. Click "Find Synonyms"
+3. View synonyms for each word and suggested combinations
 
-3. History:
-   - View your search history in the expandable section
-   - Clear history with the "Clear History" button
+## API Documentation
+
+### Endpoints
+
+#### Health Check
+```
+GET /health
+```
+Returns the current health status of the API.
+
+#### Get Synonyms
+```
+POST /synonyms
+```
+Parameters:
+- `word` (required): Word to find synonyms for
+- `second_word` (optional): Second word for combinations
+- `min_synonyms` (default: 3): Minimum number of synonyms
+- `max_synonyms` (default: 10): Maximum number of synonyms
 
 ## Error Handling
 
@@ -88,60 +135,62 @@ The application includes comprehensive error handling for:
 - Server errors
 - No synonyms found
 
-Error messages are displayed in the UI and logged for troubleshooting.
+Errors are logged and displayed in the UI with user-friendly messages.
 
 ## Troubleshooting
 
-1. If the application won't start:
+### Docker Issues
+
+1. Make sure you're in the correct directory:
+   ```bash
+   cd synonym_app/docker
+   ```
+
+2. If the application won't start:
    - Ensure Docker Desktop is running
    - Check if ports 8501 and 8000 are available
    - Review Docker logs: `docker-compose logs`
 
-2. If no synonyms are found:
+3. To rebuild the application:
+   ```bash
+   # Stop the application
+   docker-compose down
+
+   # Remove containers and rebuild
+   docker-compose up --build
+   ```
+
+### Application Issues
+
+1. If no synonyms are found:
    - Verify your internet connection
    - Check the backend health at http://localhost:8000/health
    - Try a different word or phrase
 
-3. For other issues:
-   - Stop the application: Ctrl+C
-   - Remove containers: `docker-compose down`
-   - Rebuild: `docker-compose up --build`
+2. If experiencing slow responses:
+   - Check your internet connection speed
+   - Verify that both API services are operational
+   - Try reducing the maximum number of synonyms requested
 
-## Development
+## Testing
 
-To run the application in development mode:
+Run backend tests:
+```bash
+cd backend
+pytest test_api.py
+```
 
-1. Backend:
-   ```bash
-   cd backend
-   pip install -r requirements.txt
-   uvicorn main:app --reload
-   ```
+## Contributing
 
-2. Frontend:
-   ```bash
-   cd frontend
-   pip install -r requirements.txt
-   streamlit run app.py
-   ```
-
-## API Documentation
-
-The backend API provides the following endpoints:
-
-- `GET /health` - Health check endpoint
-- `POST /synonyms` - Get synonyms for words
-  - Parameters:
-    - word (required): Word to find synonyms for
-    - second_word (optional): Second word for combinations
-    - min_synonyms (default: 3): Minimum number of synonyms
-    - max_synonyms (default: 10): Maximum number of synonyms
-
-Detailed API documentation is available at http://localhost:8000/docs when the application is running.
-
-
+1. Fork the repository
+2. Create a feature branch
+3. Commit changes
+4. Push to the branch
+5. Create a Pull Request
 
 ## Contact
 
-For issues or questions, please contact:
-richard.cibere@seznam.cz
+For issues or questions:
+- Email: richard.cibere@seznam.cz
+- GitHub Issues: [Create an issue](repository-issues-url)
+
