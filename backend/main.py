@@ -47,7 +47,7 @@ class SynonymAPI:
                 "url": "https://api.api-ninjas.com/v1/thesaurus",
                 "params": lambda word: {"word": word},
                 "headers": {
-                    "X-Api-Key": os.getenv('NINJAS_API_KEY', 'oFp6FIbNI+5DQGSfDkmMag==0UFNr61a8PcsRKDm')
+                    "X-Api-Key": os.getenv('NINJAS_API_KEY', '')
                 }
             },
             "datamuse": {
