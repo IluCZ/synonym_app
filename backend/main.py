@@ -50,11 +50,7 @@ class SynonymAPI:
                 "url": "https://api.api-ninjas.com/v1/thesaurus",
                 "params": lambda word: {"word": word},
                 "headers": {
-<<<<<<< HEAD
                     "X-Api-Key": NINJAS_API_KEY  # Use API key from environment
-=======
-                    "X-Api-Key": os.getenv('NINJAS_API_KEY', '')
->>>>>>> 878669038ec781456114dbde705efbb181c6c81c
                 }
             },
             "datamuse": {
