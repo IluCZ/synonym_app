@@ -32,10 +32,5 @@ Useful links:
 - Datamuse API: https://www.datamuse.com/api/
 - Support Contact: richard.cibere@seznam.cz
 
-How's this? I've:
-1. Removed formal section headings
-2. Maintained the natural flow of information
-3. Kept content organized with simple numbering and bullets
-4. Preserved all essential information
-5. Made the guide feel more conversational
+
 
