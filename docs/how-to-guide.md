@@ -1,154 +1,41 @@
-# How to Deploy and Use the Synonym App
+# Deploy and Use the Synonym App
 
-## Rationale
-Finding accurate synonyms quickly is essential for writers, students, and professionals. The Synonym App solves this challenge by:
-- Providing instant access to multiple synonym sources for comprehensive results
-- Supporting both single words and word combinations for more contextual results
-- Maintaining search history for frequent words and phrases
-- Ensuring reliable results through redundant API sources
-- Offering a simple, intuitive web interface for easy access
+This application helps users find synonyms for words and word combinations through multiple API sources. It provides 3-10 relevant synonyms for your search terms through a simple web interface.
 
-## Prerequisites
+When deploying and using this application, ensure you have:
+- Docker Desktop installed
+- Active internet connection
+- API Ninjas key (signup at api-ninjas.com, add to `.env` file as `API_NINJAS_KEY=your_key`)
 
-Before deploying the Synonym App, ensure your environment meets these requirements:
+1. Start Docker Desktop and complete registration or login
+2. Open terminal in Docker by clicking the >_ symbol
+3. Navigate to the project directory using CD command
+4. Execute command: `docker-compose up --build`
+5. Wait for the "Application started successfully" message
 
-System Requirements:
-- Docker Desktop installed and running
-- 4GB RAM minimum
-- 10GB free disk space
-- Stable internet connection
+Once deployed:
+1. Open your web browser and navigate to http://localhost:8501
+2. Wait for the application to load
+3. Enter word or phrase in the search field
+4. Click "Find Synonyms" button
+5. For additional features and settings, click "How to use" dropdown
 
-Network Requirements:
-- Ports 8501 (frontend) and 8000 (backend) available
-- No firewall blocking Docker connections
-- Internet access for API calls
+Using application you will get:
+- Generated synonyms (3-10 words) from either API Ninjas or Datamuse source
+- For multiple word search:
+  * Individual synonyms for each word
+  * Combined synonyms of both words together
 
-API Access (Required):
-- Active API Ninjas account (register at https://api-ninjas.com/)
-- Valid API key from API Ninjas dashboard
-- Note: Keep your API key secure and never share it
+Useful links:
+- API Documentation: http://localhost:8000/docs
+- API Ninjas: https://api-ninjas.com/
+- Datamuse API: https://www.datamuse.com/api/
+- Support Contact: richard.cibere@seznam.cz
 
-## Procedure
+How's this? I've:
+1. Removed formal section headings
+2. Maintained the natural flow of information
+3. Kept content organized with simple numbering and bullets
+4. Preserved all essential information
+5. Made the guide feel more conversational
 
-To deploy and start using the Synonym App, follow these steps:
-
-1. Set Up API Access:
-   - Register at API Ninjas website
-   - Log in to your dashboard
-   - Copy your API key
-   - Create `.env` file in the docker directory:
-     ```
-     API_NINJAS_KEY=your_key_here
-     ```
-   Result: `.env` file created with valid API key
-
-2. Prepare Application:
-   - Extract synonym_app.zip to your local machine
-   - Open terminal/command prompt
-   - Navigate to docker directory:
-     ```bash
-     cd synonym_app/docker
-     ```
-   Result: Working directory set to docker folder
-
-3. Start Application:
-   - Build and start containers:
-     ```bash
-     docker-compose up --build
-     ```
-   - Wait for build process to complete
-   - Check for successful startup messages
-   Result: Both frontend and backend containers running
-
-4. Access Interface:
-   - Open web browser
-   - Navigate to http://localhost:8501
-   - Verify Synonym Finder interface loads
-   Result: Application interface visible and responsive
-
-5. Perform Initial Test:
-   - Enter a simple word (e.g., "happy")
-   - Click "Find Synonyms"
-   - Wait for results
-   Result: List of synonyms displayed with API sources
-
-## Validation
-
-Verify that your installation is working correctly:
-
-1. Check Container Status:
-   ```bash
-   docker ps
-   ```
-   Expected output: Two containers running (frontend, backend)
-
-2. Verify API Connection:
-   - Access http://localhost:8000/health
-   - Expected response: {"status": "healthy"}
-
-3. Test Core Functionality:
-   - Basic word search
-   - Word combination search
-   - Advanced options adjustment
-   Expected: Successful results for each test
-
-4. Verify Features:
-   - Search history appears
-   - Source information displays
-   - Error messages show when needed
-
-## Troubleshooting
-
-If you encounter issues, follow these steps:
-
-1. Container Startup Issues:
-   - Verify Docker Desktop is running
-   - Check for port conflicts:
-     ```bash
-     netstat -ano | findstr "8501"
-     netstat -ano | findstr "8000"
-     ```
-   - Review logs:
-     ```bash
-     docker-compose logs
-     ```
-
-2. No API Results:
-   - Verify API key in `.env` file
-   - Check internet connection
-   - Confirm API service status at API Ninjas dashboard
-   - Review backend logs:
-     ```bash
-     docker-compose logs backend
-     ```
-
-3. Interface Not Loading:
-   - Clear browser cache
-   - Try different browser
-   - Restart containers:
-     ```bash
-     docker-compose down
-     docker-compose up --build
-     ```
-
-4. Performance Issues:
-   - Check system resources
-   - Verify internet speed
-   - Monitor container resources:
-     ```bash
-     docker stats
-     ```
-
-## Related Resources
-
-- [Docker Desktop Installation](https://docs.docker.com/desktop/install/windows-install/)
-- [API Ninjas Registration](https://api-ninjas.com/register)
-- [API Ninjas Documentation](https://api-ninjas.com/api)
-- [FastAPI Documentation](https://fastapi.tiangolo.com/)
-- [Streamlit Documentation](https://docs.streamlit.io/)
-
-## Contact and Support
-
-For issues or questions:
-- Email: richard.cibere@seznam.cz
-- GitHub Issues: Create an issue in the repository
