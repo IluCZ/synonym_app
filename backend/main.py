@@ -1,3 +1,5 @@
+import os
+from dotenv import load_dotenv
 from fastapi import FastAPI, HTTPException
 from fastapi.responses import HTMLResponse
 from fastapi.middleware.cors import CORSMiddleware
@@ -6,6 +8,9 @@ import httpx
 from typing import List, Dict, Set, Optional, Union
 from datetime import datetime
 import logging
+
+# Load environment variables
+load_dotenv()
 
 # Configure logging for tracking errors and events
 logging.basicConfig(
@@ -61,7 +66,7 @@ class SynonymAPI:
                 "url": "https://api.api-ninjas.com/v1/thesaurus",
                 "params": lambda word: {"word": word},
                 "headers": {
-                    "X-Api-Key": "oFp6FIbNI+5DQGSfDkmMag==0UFNr61a8PcsRKDm"
+                    "X-Api-Key": os.getenv('API_NINJAS_KEY')
                 }
             }
         }

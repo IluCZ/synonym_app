@@ -49,6 +49,8 @@ temp/
 .env.local
 .env.*
 !.env.example
+docker/config/.env*
+backend/.env
 *.local.py
 
 # Docker
